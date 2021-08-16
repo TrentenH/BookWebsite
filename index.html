@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="d-flex justify-content-center align-items-center container" id="main-content">
-            <form>
+            <form onsubmit="return addBookToLibrary()">
                 <div class="form-group row">
                     <h2>Add a Book</h2>
                 </div>
@@ -29,11 +29,11 @@
                     <label class="form-check-label" for="read">Read it already?</label>
                     <input type="checkbox" class="form-check-input" id="read">
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="addBookToLibrary()">Add to book list</button>
+                <button type="submit" class="btn btn-primary">Add to book list</button>
             </form>
         </div>
-        <div id="book-display">
-            
+        <div id="card-container">
+
         </div>
         
     </body>
