@@ -55,7 +55,6 @@ function makeBookCard(Book) {
     let card = document.createElement('div');
     card.className = 'card';
     card.id = Book.idNum;
-    card.style = 'width: 18rem';
     let cardBody = document.createElement('div');
     cardBody.className = 'card-body';
     let title = document.createElement('h4');
@@ -70,7 +69,6 @@ function makeBookCard(Book) {
     delButton.className = 'btn btn-danger';
     delButton.id = 'delbutton' + Book.idNum;
     delButton.innerHTML = 'delete';
-    
 
     // Links all components made prior to their respective parents 
     // and appends the card to the DOM

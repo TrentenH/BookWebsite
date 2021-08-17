@@ -6,10 +6,33 @@ h2 {
     text-align: center;
 }
 
+.card {
+    width: 18rem;
+    background-color: rgb(171, 193, 207);
+    margin: 10px 10px 10px 10px;
+    filter: drop-shadow(0 0 0.75em rgb(30, 54, 163));
+}   
+
+#book-list-heading {
+    padding-top: 3em;
+
+    justify-content: center;
+    text-align: center;
+}
+
+#card-container {
+    padding-top: 2em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 #main-content {
     margin-top: 10px;
     padding-top: 5px;
     padding-bottom: 10px;
-    background-color: rgb(194, 197, 199);
+    background-color: rgb(171, 193, 207);
     border-radius: 1.5%;
+    filter: drop-shadow(0 0 0.75em rgb(30, 54, 163));
 }
