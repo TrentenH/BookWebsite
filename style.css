@@ -20,6 +20,10 @@ h1 {
     font-weight: 250;
 }
 
+hr {
+    border-top: 4px solid black;
+}
+
 .button-container {
     align-self: center;
     text-align: center;
