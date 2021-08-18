@@ -54,14 +54,6 @@ function addBookToLibrary() {
         }
     }
 
-    
-
-    // Stores book in array of books
-    
-
-    // Calls function to make displayable card
-    
-
     // Said to help not refresh page upon submit
     return false;
     
