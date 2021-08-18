@@ -70,12 +70,12 @@ function makeBookCard(Book) {
     buttonContainer.className = 'button-container';
     let delButton = document.createElement('button');
     delButton.className = 'btn btn-danger';
-    delButton.id = 'delbutton' + Book.idNum;
+    delButton.id = 'delButton' + Book.idNum;
     delButton.innerHTML = 'delete';
     let editButton = document.createElement('button');
     editButton.className = 'btn btn-primary';
     editButton.innerHTML = 'read it?';
-    editButton.id = Book.idNum;
+    editButton.id = 'editButton' + Book.idNum;
 
     // Links all components made prior to their respective parents 
     // and appends the card to the DOM
@@ -90,26 +90,36 @@ function makeBookCard(Book) {
     // Binds delete function to card button click
     // also reassigns idNums for books so as to keep myLibrary
     // indexing
-    delButton.onclick = function(e){
-        console.log(this.id);
-        let cardID = parseInt(this.parentNode.parentNode.id);
-        myLibrary.splice(cardID, 1);
-        this.parentNode.parentNode.remove();
-        console.table(myLibrary);
-        for(let i = myLibrary.length -1; i > cardID; i--) {
-            myLibrary[i].idNum--;
+    delButton.onclick = function(){
+        let delButtonID = this.id;
+        let cardNum = delButtonID.substring(9);
+        let parentID = document.getElementById('card' + cardNum);
+        let newDelButton = document.getElementById('delButton'+cardNum);
+        let newEditButton = document.getElementById('editButton'+cardNum);
+        parentID.remove();
+
+        myLibrary.splice(parseInt(cardNum), 1);
+        for(let i = 0; i < myLibrary.length; i++){
+            myLibrary[i].idNum = i;
+            newDelButton.id = 'delButton'+i;
+            newEditButton.id = 'editButton'+i;
         }
+        
+        console.table(myLibrary);
     }
 
     // Edits the read value reflected on the cards, as well as updates
     // the object attribute stored in myLibrary array
     editButton.onclick = function(){
-        myLibrary[this.id].read = !myLibrary[this.id].read;
-        let readOrNot = myLibrary[this.id].read;
+        let editButtonID = this.id;
+        let cardNum = editButtonID.substring(10);
+        myLibrary[cardNum].read = !myLibrary[cardNum].read;
+        let readOrNot = myLibrary[cardNum].read;
         readOrNot = readOrNot ? "Yes" : "No";
-        let description = document.getElementById('description' + this.id);
+        let description = document.getElementById('description' + cardNum);
         description.innerHTML = '<strong>By:</strong> ' + Book.author + '<br/>' 
                                         + '<strong>Pages:</strong> ' + Book.pages + '<br/>'
                                             + '<strong>Read:</strong> ' + readOrNot;
+        console.table(myLibrary);
     }
 }
