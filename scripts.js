@@ -33,11 +33,34 @@ function addBookToLibrary() {
     newBook.read = read;
     newBook.idNum = myLibrary.length;
 
+    // Reorders in order to maintain uniqueness of idNum in case
+    // of deletes followed by adds
+    for(let i = 0; i < myLibrary.length; i++){
+        myLibrary[i].idNum = i;
+    }
+
+    if(myLibrary.length == 0){
+        myLibrary.push(newBook);
+        makeBookCard(newBook);
+    }else{
+        // Checks to see if book has been entered previously
+        for(let i = 0; i < myLibrary.length; i++){
+            if(newBook.title == myLibrary[i].title){
+                alert("Book has already been entered.");
+            }else{
+                myLibrary.push(newBook);
+                makeBookCard(newBook);
+            }
+        }
+    }
+
+    
+
     // Stores book in array of books
-    myLibrary.push(newBook);
+    
 
     // Calls function to make displayable card
-    makeBookCard(newBook);
+    
 
     // Said to help not refresh page upon submit
     return false;
@@ -60,6 +83,7 @@ function makeBookCard(Book) {
     let title = document.createElement('h4');
     title.innerHTML = Book.title;
     title.className = 'card-title';
+    title.id = 'card-title' + Book.idNum;
     let description = document.createElement('p');
     description.innerHTML = '<strong>By:</strong> ' + Book.author + '<br/>' 
                             + '<strong>Pages:</strong> ' + Book.pages + '<br/>'
@@ -88,23 +112,21 @@ function makeBookCard(Book) {
     container.appendChild(card);
 
     // Binds delete function to card button click
-    // also reassigns idNums for books so as to keep myLibrary
-    // indexing
-    delButton.onclick = function(){
-        let delButtonID = this.id;
-        let cardNum = delButtonID.substring(9);
-        let parentID = document.getElementById('card' + cardNum);
-        let newDelButton = document.getElementById('delButton'+cardNum);
-        let newEditButton = document.getElementById('editButton'+cardNum);
-        parentID.remove();
-
-        myLibrary.splice(parseInt(cardNum), 1);
-        for(let i = 0; i < myLibrary.length; i++){
-            myLibrary[i].idNum = i;
-            newDelButton.id = 'delButton'+i;
-            newEditButton.id = 'editButton'+i;
+    delButton.onclick = function() {
+        console.log(this.parentNode.parentNode.parentNode.id);
+        let delButton = this.id;
+        let position = delButton.substring(9);
+        let titleID = 'card-title' + position;
+        let title = document.getElementById(titleID).innerHTML;
+        for(let i = 0; i < myLibrary.length; i++) {
+            if(myLibrary[i].title == title){
+                myLibrary.splice(i, 1);
+                break;
+            }else{
+                console.log("no book by that title");
+            }
         }
-        
+        this.parentNode.parentNode.parentNode.remove();
         console.table(myLibrary);
     }
 
