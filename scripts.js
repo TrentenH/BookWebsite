@@ -9,11 +9,6 @@ let Book = function(title, author, pages, read) {
     this.pages = pages
     this.read = read
     this.id = 0
-
-    this.info = function() {
-        let read_string = read ? "read" : "not yet read";
-        return(`${title}` + ' by ' + `${author}` + ', ' + `${pages}` + ' pages, ' + `${read_string}`);
-    }
 }
 
 // Adds a book to the myLibrary array
@@ -39,6 +34,8 @@ function addBookToLibrary() {
         myLibrary[i].idNum = i;
     }
 
+    // If myLibrary size is 0, push to array. Else, verify that book
+    // with title doesn't already exist within the array
     if(myLibrary.length == 0){
         myLibrary.push(newBook);
         makeBookCard(newBook);
@@ -103,7 +100,8 @@ function makeBookCard(Book) {
     card.appendChild(cardBody);
     container.appendChild(card);
 
-    // Binds delete function to card button click
+    // Binds delete function to card button click by checking through
+    // array for a book with that title (retrieved from card title)
     delButton.onclick = function() {
         console.log(this.parentNode.parentNode.parentNode.id);
         let delButton = this.id;
@@ -119,7 +117,6 @@ function makeBookCard(Book) {
             }
         }
         this.parentNode.parentNode.parentNode.remove();
-        console.table(myLibrary);
     }
 
     // Edits the read value reflected on the cards, as well as updates
